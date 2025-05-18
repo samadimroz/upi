@@ -44,6 +44,36 @@ function HomeScreen() {
     }
   };
 
+    const handleEnableUpi = async () => {
+    try {
+      const res = await axios.post(`${api}/enable-upi`, { phone });
+      alert(res.data.message);
+      setScreen('dashboard');
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed');
+    }
+  };
+
+     const handleDisableUpi = async () => {
+    try {
+      const res = await axios.post(`${api}/disable-upi`, { phone });
+      alert(res.data.message);
+      setScreen('dashboard');
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed');
+    }
+  };
+
+      const accountBalance = async () => {
+    try {
+      const res = await axios.post(`${api}/balance/:phone`);
+      alert(res.data.message);
+      setScreen('dashboard');
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed');
+    }
+  };
+
   return (
     <Container>
       <Row>
@@ -88,7 +118,10 @@ function HomeScreen() {
                 <h3>Welcome, {phone}</h3>
                 <Button onClick={handleTransfer}>Transfer Money</Button>
                 <Button onClick={() => setScreen('home')}>Logout</Button>
-                <Button onClick={() => setScreen('#')}>Activate UPI</Button>
+                <Button onClick={accountBalance}>Account Balance</Button>
+                <Button onClick={handleEnableUpi}>Enable UPI</Button>
+                <Button onClick={handleDisableUpi}>Disable UPI</Button>
+                <Button onClick={handleDisableUpi}>Add money</Button>
               </Card>
             </div>
           )}
