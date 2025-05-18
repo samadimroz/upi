@@ -74,19 +74,22 @@ function HomeScreen() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 /><br />
-                <button onClick={screen === 'register' ? handleRegister : handleLogin}>
+                <Button onClick={screen === 'register' ? handleRegister : handleLogin}>
                   {screen === 'register' ? 'Register' : 'Login'}
-                </button>
-                <button onClick={() => setScreen('home')}>Back</button>
+                </Button>
+                <Button onClick={() => setScreen('home')}>Back</Button>
               </Card>
             </div>
           )}
 
           {screen === 'dashboard' && (
             <div>
-              <h3>Welcome, {phone}</h3>
-              <button onClick={handleTransfer}>Transfer Money</button>
-              <button onClick={() => setScreen('home')}>Logout</button>
+              <Card className='login_register'>
+                <h3>Welcome, {phone}</h3>
+                <Button onClick={handleTransfer}>Transfer Money</Button>
+                <Button onClick={() => setScreen('home')}>Logout</Button>
+                <Button onClick={() => setScreen('#')}>Activate UPI</Button>
+              </Card>
             </div>
           )}
         </Col>
