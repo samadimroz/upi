@@ -6,7 +6,7 @@
   text-align: center;
   background-color: #f7f7f7;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 input {
@@ -19,7 +19,7 @@ button {
   margin: 5px;
   padding: 10px 20px;
   border: none;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border-radius: 5px;
   cursor: pointer;

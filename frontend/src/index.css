@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -21,15 +21,6 @@ a {
 a:hover {
   color: #535bf2;
 }
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -65,4 +56,14 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.login_register {
+  display: flexbox;
+  left: 20px;
+  top: 250px;
+  width: 400px;
+  padding: 2rem;
+  gap: 10px;
+  margin-left: 220px;
 }

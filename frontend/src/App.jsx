@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "./App.css"
+import banner from "./assets/banner.jpg"
+import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 
 function HomeScreen() {
   const [phone, setPhone] = useState('');
@@ -43,39 +45,53 @@ function HomeScreen() {
   };
 
   return (
-    <div className="home-container">
-      {screen === 'home' && (
-        <>
-          <h2>Welcome to UPI App</h2>
-          <button onClick={() => setScreen('register')}>Register</button>
-          <button onClick={() => setScreen('login')}>Login</button>
-        </>
-      )}
+    <Container>
+      <Row>
+        <Col md={6}>
+          <img src={banner} alt='banner' style={{ height: 600 }} />
+        </Col>
 
-      {(screen === 'register' || screen === 'login') && (
-        <div>
-          <h3>{screen === 'register' ? 'Register' : 'Login'}</h3>
-          <input
-            type="text"
-            placeholder="Enter 10-digit phone number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          /><br />
-          <button onClick={screen === 'register' ? handleRegister : handleLogin}>
-            {screen === 'register' ? 'Register' : 'Login'}
-          </button>
-          <button onClick={() => setScreen('home')}>Back</button>
-        </div>
-      )}
+        <Col md={6}>
+          {screen === 'home' && (
+            <Card className='login_register'>
 
-      {screen === 'dashboard' && (
-        <div>
-          <h3>Welcome, {phone}</h3>
-          <button onClick={handleTransfer}>Transfer Money</button>
-          <button onClick={() => setScreen('home')}>Logout</button>
-        </div>
-      )}
-    </div>
+              <h2>Welcome to UPI App</h2>
+              <Col className='d-flex justify-content-center'>
+                <Button onClick={() => setScreen('register')}>Register</Button>
+                <Button onClick={() => setScreen('login')}>Login</Button>
+              </Col>
+            </Card>
+
+          )}
+
+          {(screen === 'register' || screen === 'login') && (
+            <div >
+              <Card className='login_register'>
+                <h3 className=''>{screen === 'register' ? 'Register' : 'Login'}</h3>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter 10-digit phone number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                /><br />
+                <button onClick={screen === 'register' ? handleRegister : handleLogin}>
+                  {screen === 'register' ? 'Register' : 'Login'}
+                </button>
+                <button onClick={() => setScreen('home')}>Back</button>
+              </Card>
+            </div>
+          )}
+
+          {screen === 'dashboard' && (
+            <div>
+              <h3>Welcome, {phone}</h3>
+              <button onClick={handleTransfer}>Transfer Money</button>
+              <button onClick={() => setScreen('home')}>Logout</button>
+            </div>
+          )}
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
