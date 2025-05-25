@@ -10,7 +10,7 @@ function HomeScreen() {
   const [phone, setPhone] = useState('');
   const [screen, setScreen] = useState('home'); // home | register | login | dashboard
 
-  const api = 'http://localhost:5000';
+  const api = 'http://localhost:5002';
 
   const handleRegister = async () => {
     try {
@@ -66,14 +66,24 @@ function HomeScreen() {
 
       const accountBalance = async () => {
     try {
-      const res = await axios.post(`${api}/balance/:phone`);
-      alert(res.data.message);
+      const res = await axios.get(`${api}/balance/${phone}`);
+      alert(res.data.balance);
       setScreen('dashboard');
     } catch (err) {
       alert(err.response?.data?.error || 'Failed');
     }
   };
 
+    const handleAddMoney = async () => {
+    const amount = parseFloat(prompt('Enter amount to add:'));
+    try {
+      const res = await axios.post(`${api}/add-money`, { phone, amount });
+      alert(res.data.message);
+      setScreen('dashboard');
+    } catch (err) {
+      alert(err.response?.data?.error || 'Failed');
+    }
+  };
   return (
     <Container>
       <Row>
@@ -117,11 +127,11 @@ function HomeScreen() {
               <Card className='login_register'>
                 <h3>Welcome, {phone}</h3>
                 <Button onClick={handleTransfer}>Transfer Money</Button>
-                <Button onClick={() => setScreen('home')}>Logout</Button>
                 <Button onClick={accountBalance}>Account Balance</Button>
                 <Button onClick={handleEnableUpi}>Enable UPI</Button>
                 <Button onClick={handleDisableUpi}>Disable UPI</Button>
-                <Button onClick={handleDisableUpi}>Add money</Button>
+                <Button onClick={handleAddMoney}>Add money</Button>
+                <Button onClick={() => setScreen('home')}>Logout</Button>
               </Card>
             </div>
           )}

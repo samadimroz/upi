@@ -6,7 +6,7 @@ const { Pool } = require("pg");
 require("dotenv").config();
 
 const app = express();
-const port = 5000;
+const port = 5002;
 app.use(cors());
 // app.use(cors({
 //   origin: 'http://localhost:5173', // allow frontend origin
@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 
 const todayDate = () => new Date().toISOString().split("T")[0];
 
-// Register User
+//To Register User
 app.post("/register", async (req, res) => {
   const { phone } = req.body;
   if (!/^\d{10}$/.test(phone))
@@ -65,7 +65,7 @@ app.post("/register", async (req, res) => {
   res.send({ message: "User registered successfully" });
 });
 
-// Login User
+//To Login User
 app.post("/login", async (req, res) => {
   const { phone } = req.body;
   const result = await pool.query(`SELECT * FROM users WHERE phone = $1`, [
@@ -80,7 +80,7 @@ app.post("/login", async (req, res) => {
   res.send({ success: true, upi_enabled: user.upi_enabled });
 });
 
-// Enable UPI
+//To Enable UPI
 app.post("/enable-upi", async (req, res) => {
   const { phone } = req.body;
   await pool.query(`UPDATE users SET upi_enabled = true WHERE phone = $1`, [
@@ -89,7 +89,7 @@ app.post("/enable-upi", async (req, res) => {
   res.send({ message: "UPI Enabled" });
 });
 
-// Disable UPI
+//To Disable UPI
 app.post("/disable-upi", async (req, res) => {
   const { phone } = req.body;
   await pool.query(`UPDATE users SET upi_enabled = false WHERE phone = $1`, [
@@ -98,7 +98,7 @@ app.post("/disable-upi", async (req, res) => {
   res.send({ message: "UPI Disabled" });
 });
 
-// Add Money
+//To Add Money
 app.post("/add-money", async (req, res) => {
   const { phone, amount } = req.body;
   const user = await pool.query(
@@ -126,7 +126,7 @@ app.post("/add-money", async (req, res) => {
   res.send({ message: "Money added" });
 });
 
-// Transfer Money
+//To Transfer Money
 app.post("/transfer", async (req, res) => {
   const { fromPhone, toPhone, amount } = req.body;
   const fromUser = await pool.query(
@@ -182,12 +182,10 @@ app.post("/transfer", async (req, res) => {
   res.send({ message: "Transfer successful" });
 });
 
-// Get Balance
+//To Get Balance
 app.get("/balance/:phone", async (req, res) => {
   const phone = req.params.phone;
-  const user = await pool.query(`SELECT * FROM users WHERE phone = $1`, [
-    phone,
-  ]);
+  const user = await pool.query(`SELECT * FROM users WHERE phone = $1`, [phone]);
   if (!user.rowCount) return res.status(404).send({ error: "User not found" });
 
   const account = await pool.query(
