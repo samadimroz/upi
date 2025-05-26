@@ -40,7 +40,7 @@ function HomeScreen() {
       const res = await axios.post(`${api}/transfer`, { fromPhone: phone, toPhone, amount });
       alert(res.data.message);
     } catch (err) {
-      alert(err.response?.data?.error || 'Transfer failed');
+      alert(err.response?.data?.error);
     }
   };
 
@@ -67,7 +67,7 @@ function HomeScreen() {
       const accountBalance = async () => {
     try {
       const res = await axios.get(`${api}/balance/${phone}`);
-      alert(res.data.balance);
+      alert('Your account balance is: '+res.data.balance);
       setScreen('dashboard');
     } catch (err) {
       alert(err.response?.data?.error || 'Failed');

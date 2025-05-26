@@ -112,7 +112,7 @@ app.post("/add-money", async (req, res) => {
     [user.rows[0].id]
   );
   if (parseFloat(account.rows[0].balance) + amount > 100000)
-    return res.status(400).send({ error: "Balance limit exceeded" });
+    return res.status(400).send({ error: "Failed!! Balance limit exceeded" });
 
   await pool.query(
     `UPDATE accounts SET balance = balance + $1 WHERE user_id = $2`,
@@ -139,9 +139,13 @@ app.post("/transfer", async (req, res) => {
   );
 
   if (!fromUser.rowCount || !toUser.rowCount)
-    return res.status(400).send({ error: "Invalid users" });
+    return res.status(400).send({ error: "Invalid user" });
   if (amount > 20000)
     return res.status(400).send({ error: "Max transfer amount is 20k" });
+
+  // if (parseFloat(account.rows[0].balance) + amount > 100000)
+  //   return res.status(400).send({ error: "Balance limit exceeded" });
+
 
   const fromId = fromUser.rows[0].id;
   const today = new Date().toISOString().split("T")[0];
@@ -154,7 +158,7 @@ app.post("/transfer", async (req, res) => {
     dayTransfers.rows[0].count >= 3 ||
     parseFloat(dayTransfers.rows[0].total || 0) + amount > 50000
   ) {
-    return res.status(400).send({ error: "Transfer limits exceeded" });
+    return res.status(400).send({ error: "Transfer limit exceeded max 3 transfers/day" });
   }
 
   const balance = await pool.query(

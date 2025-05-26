@@ -28,3 +28,14 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+#toastBox{
+  display: flex;
+  position: absolute;
+  top: 30px;
+  align-items: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px;
+  
+}
